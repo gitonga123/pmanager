@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::resource('companies', 'CompanyController');
+Route::resource('projects', 'ProjectController');
+Route::resource('roles', 'RoleController');
+Route::resource('tasks', 'TaskController');
+Route::resource('users', 'UserController');
+Route::resource('comments', 'CommentController');
