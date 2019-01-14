@@ -17,9 +17,20 @@ $factory->define(pmanager\User::class, function (Faker $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->name,
+        'last_name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'roles' => 0
+    ];
+});
+
+$factory->define(pmanager\Company::class, function (Faker $faker) {
+
+    return [
+        'name' => $faker->company,
+        'description' => $faker->paragraph,
+        'user_id' => $faker->randomDigit
     ];
 });
