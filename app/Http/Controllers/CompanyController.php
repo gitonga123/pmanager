@@ -44,12 +44,14 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Company $company)
     {
-        //
+//        $company = Company::where('id', $company->id)->first();
+        $company = Company::find($company->id);
+        return view('companies.show', compact('company'));
     }
 
     /**
@@ -58,21 +60,33 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Company $company)
     {
-        //
+        $company = Company::find($company->id);
+        return view('companies.edit', compact('company'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Company $company)
     {
-        //
+        //save data
+        $companyUpdate = Company::where('id', $company->id)
+            ->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description')
+            ]);
+        if ($companyUpdate) {
+            return redirect()->route('companies.show', ['company' => $company->id])
+                ->with('success', 'Company Updated Successfully');
+        }
+        // redirect
+        return back()->withInput();
     }
 
     /**

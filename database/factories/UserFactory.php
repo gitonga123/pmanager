@@ -34,3 +34,14 @@ $factory->define(pmanager\Company::class, function (Faker $faker) {
         'user_id' => $faker->randomDigit
     ];
 });
+
+$factory->define(pmanager\Project::class, function (Faker $faker) {
+
+    return [
+        'name' => $faker->words,
+        'description' => $faker->paragraph,
+        'user_id' => $faker->randomDigit,
+        'company_id' => $faker->randomDigit,
+        'days' => $faker->randomDigit
+    ];
+});
