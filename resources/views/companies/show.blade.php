@@ -31,18 +31,32 @@
             <div class="sidebar-module">
                 <h4>Actions</h4>
                 <ol class="list-unstyled">
+                    <li><a href="route{{ 'companies.create' }}">New Company</a></li>
                     <li><a href="/companies/{{ $company->id }}/edit">Edit</a></li>
-                    <li><a href="#">Delete</a></li>
-                    <li><a href="#">Add New Member</a></li>
+                    <li><a href="#"
+                        onclick="
+                        var result = confirm('Are you sure you wish to delete this project ?');
+                        if (result) {
+                            event.preventDefault();
+                            document.getElementById('delete-form').submit();
+                        }
+                        ">Delete</a></li>
+                    <form id="delete-form" method="POST" style="display: none;" action="{{ route('companies.destroy', [$company->id])}}">
+                        <input type="hidden" name="_method" value="delete" />
+                        {{ csrf_field() }}
+                    </form>
+
                 </ol>
             </div>
 
-            {{--<div class="sidebar-module">--}}
-                {{--<h4>Members</h4>--}}
-                {{--<ol class="list-unstyled">--}}
-                    {{--<li><a href="#">March 2014</a></li>--}}
-                {{--</ol>--}}
-            {{--</div>--}}
+            <div class="sidebar-module">
+                <h4>Links</h4>
+                <ol class="list-unstyled">
+                    <li><a href="{{ route('projects.create') }}">New Project</a></li>
+                    <li><a href="#">New Member</a></li>
+                    <li><a href="/companies">View All Campanies</a></li>
+                </ol>
+            </div>
         </div>
     </div>
 @endsection

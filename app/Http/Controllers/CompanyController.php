@@ -27,7 +27,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -86,17 +86,23 @@ class CompanyController extends Controller
                 ->with('success', 'Company Updated Successfully');
         }
         // redirect
-        return back()->withInput();
+        return back()->withInput()->with('error', 'Company could not be updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Company $company)
     {
-        //
+         $findCompany = Company::find($company->id);
+
+         if ($findCompany->delete()) {
+             return redirect()->route('companies.index')->with('success', 'Company Deleted Successfully');
+         }
+
+         return back()->withInput()->with('error', 'Company could not be deleted');
     }
 }
