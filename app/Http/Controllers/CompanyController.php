@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use pmanager\Company;
 use Illuminate\Support\Facades\Auth;
 
+
 class CompanyController extends Controller
 {
     /**
@@ -16,8 +17,14 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        if (Auth::check() && Auth::user()->id === 3) {
+            $companies = Company::all();
+        } else if (Auth::check()) {
 
+            $companies = Company::where('user_id', Auth::user()->id)->get();
+        } else {
+            return redirect()->route('login')->with("Kasambuyu Oyole");
+        }
         return view('companies.index', compact('companies'));
     }
 

@@ -46,9 +46,29 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+
+                            <li><a href="{{ route('companies.index') }}">Companies</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>Projects <span class="caret"></span>
+                                </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ route('projects.index') }}">All</a></li>
+                                        <li><a href="{{ route('projects.index') }}">Complete</a></li>
+                                        <li><a href="{{ route('projects.index') }}">Pending</a></li>
+                                    </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>Tasks <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('tasks.index') }}">All</a></li>
+                                    <li><a href="{{ route('tasks.index') }}">Complete</a></li>
+                                    <li><a href="{{ route('tasks.index') }}">Pending</a></li>
+                                </ul>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->first_name }}  <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
