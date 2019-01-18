@@ -5,6 +5,7 @@ namespace pmanager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use pmanager\Company;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -38,7 +39,20 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $company = false;
+        if (Auth::check()) {
+            $company = Company::create([
+                'name' => $request->input('name'),
+                'description' => $request->input(['description']),
+                'user_id' => Auth::user()->id,
+            ]);
+        }
+
+        if($company) {
+            return redirect()->route('companies.show', ['company' => $company->id])->with('success', 'Company Created Successfully');
+        } else {
+            return back()->withInput()->with('errors', ['The project could not be created, Contact your Admin']);
+        }
     }
 
     /**
@@ -57,7 +71,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Company $company
      * @return \Illuminate\Http\Response
      */
     public function edit(Company $company)
@@ -86,7 +100,7 @@ class CompanyController extends Controller
                 ->with('success', 'Company Updated Successfully');
         }
         // redirect
-        return back()->withInput()->with('error', 'Company could not be updated');
+        return back()->withInput()->with('errors', ['Company could not be updated']);
     }
 
     /**
@@ -103,6 +117,6 @@ class CompanyController extends Controller
              return redirect()->route('companies.index')->with('success', 'Company Deleted Successfully');
          }
 
-         return back()->withInput()->with('error', 'Company could not be deleted');
+         return back()->withInput()->with('error', ['Company could not be deleted']);
     }
 }

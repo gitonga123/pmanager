@@ -4,8 +4,8 @@
             <span aria-hidden="true">&times;</span>
         </button>
         <strong>
-            @foreach($errors->all() as $error)
-                <li><strong>{!! $error !!}</strong></li>
+            @foreach($errors as $error)
+                <li class="alert alert-danger"><strong>{!! $error !!}</strong></li>
              @endforeach
         </strong>
     </div>

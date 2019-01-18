@@ -31,7 +31,7 @@
             <div class="sidebar-module">
                 <h4>Actions</h4>
                 <ol class="list-unstyled">
-                    <li><a href="route{{ 'companies.create' }}">New Company</a></li>
+                    <li><a href="{{ route('companies.create') }}">New Company</a></li>
                     <li><a href="/companies/{{ $company->id }}/edit">Edit</a></li>
                     <li><a href="#"
                         onclick="

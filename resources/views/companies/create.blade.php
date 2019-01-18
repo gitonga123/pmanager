@@ -12,7 +12,6 @@
                 <div class="col-lg-12 col-sm-12 col-md-12">
                     <form class="form-horizontal" method="post" action="{{route('companies.store')}}">
                         {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="put">
                         <div class="form-group">
                             <label for="company-name">Name<span class="required">*</span></label>
                             <input placeholder="Enter Name"
