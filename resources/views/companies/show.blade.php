@@ -7,7 +7,7 @@
             <div class="jumbotron">
              <h1>{{ $company->name }}</h1>
              <p class="lead">{{ $company->description }}</p>
-                <a href="{{route('projects.create')}}" class="btn btn-sm btn-danger pull-right">New Project</a>
+                <a href="{{ route('new_project', [$company->id]) }}" class="btn btn-sm btn-danger pull-right">New Project</a>
          </div>
 
             <div class="row" style="background: white; margin: 10px;">
@@ -53,7 +53,7 @@
             <div class="sidebar-module">
                 <h4>Links</h4>
                 <ol class="list-unstyled">
-                    <li><a href="{{ route('projects.create') }}">New Project</a></li>
+                    <li><a href="{{ route('projects.create', [$company->id]) }}">New Project</a></li>
                     <li><a href="#">New Member</a></li>
                     <li><a href="/companies">View All Campanies</a></li>
                 </ol>

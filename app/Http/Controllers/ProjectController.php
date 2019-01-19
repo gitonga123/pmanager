@@ -3,7 +3,9 @@
 namespace pmanager\Http\Controllers;
 
 use Illuminate\Http\Request;
+use pmanager\Company;
 use pmanager\Project;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -28,11 +30,17 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param $company_id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id = null)
     {
-        return view('projects.create');
+        if ($company_id) {
+
+            $company = Company::find(intval($company_id));
+            return view('projects.create', compact('company'));
+        }
+        return view('projects.create', ['company_id' => $company_id]);
     }
 
     /**
@@ -47,6 +55,7 @@ class ProjectController extends Controller
         if (Auth::check()) {
             $project = Project::create([
                 'name' => $request->input('name'),
+                'company_id' => $request->input('company_id'),
                 'description' => $request->input(['description']),
                 'user_id' => Auth::user()->id,
             ]);

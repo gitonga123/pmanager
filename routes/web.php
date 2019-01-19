@@ -19,10 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::resource('companies', 'CompanyController');
-Route::resource('projects', 'ProjectController');
-Route::resource('roles', 'RoleController');
-Route::resource('tasks', 'TaskController');
-Route::resource('users', 'UserController');
-Route::resource('comments', 'CommentController');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/projects/create/{company_id}', 'ProjectController@create')->name('new_project');
+    Route::resource('companies', 'CompanyController');
+    Route::resource('projects', 'ProjectController');
+    Route::resource('roles', 'RoleController');
+    Route::resource('tasks', 'TaskController');
+    Route::resource('users', 'UserController');
+    Route::resource('comments', 'CommentController');
+});

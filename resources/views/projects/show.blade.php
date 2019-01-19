@@ -4,22 +4,20 @@
 @section('content')
     <div class="container">
         <div class="col-md-9 col-lg-9 col-sm-9 pull-left">
-            <div class="jumbotron">
-             <h1>{{ $company->name }}</h1>
-             <p class="lead">{{ $company->description }}</p>
-                <a href="{{route('projects.create')}}" class="btn btn-sm btn-danger pull-right">New Project</a>
+            <div class="well well-lg">
+             <h1>{{ $project->name }}</h1>
+             <p class="lead">{{ $project->description }}</p>
+                {{--<a href="{{route('projects.create')}}" class="btn btn-sm btn-danger pull-right">New Project</a>--}}
          </div>
 
             <div class="row" style="background: white; margin: 10px;">
-
-            @foreach($company->projects as $project)
-                <div class="col-lg-4 col-sm-4 col-md-4">
-                    <h2>{{ $project->name }}</h2>
-                    <p class="text-danger">Days: {{ $project->days }}</p>
-                    <p> {{ $project->description }}</p>
-                    <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View Project</a></p>
-                </div>
-            @endforeach
+            {{--@foreach($project->company as $company)--}}
+                {{--<div class="col-lg-4 col-sm-4 col-md-4">--}}
+                    {{--<h2>{{ $project->company->name }}</h2>--}}
+                    {{--<p> {{ $project->company->description }}</p>--}}
+                    {{--<p><a class="btn btn-primary" href="/companies/{{ $project->company->id }}" role="button">View Company</a></p>--}}
+                {{--</div>--}}
+            {{--@endforeach--}}
         </div>
         </div>
 
@@ -32,30 +30,31 @@
             <div class="sidebar-module">
                 <h4>Actions</h4>
                 <ol class="list-unstyled">
-                    <li><a href="{{ route('companies.create') }}">New Company</a></li>
-                    <li><a href="/companies/{{ $company->id }}/edit">Edit</a></li>
-                    <li><a href="#"
-                        onclick="
-                        var result = confirm('Are you sure you wish to delete this project ?');
-                        if (result) {
-                            event.preventDefault();
-                            document.getElementById('delete-form').submit();
-                        }
-                        ">Delete</a></li>
-                    <form id="delete-form" method="POST" style="display: none;" action="{{ route('companies.destroy', [$company->id])}}">
-                        <input type="hidden" name="_method" value="delete" />
-                        {{ csrf_field() }}
-                    </form>
-
+                    <li><a href="{{ route('companies.create') }}">New Project</a></li>
+                    <li><a href="/projects/{{ $project->id }}/edit">Edit</a></li>
+                    @if(Auth::user()->id == $project->user_id)
+                        <li><a href="#"
+                            onclick="
+                            var result = confirm('Are you sure you wish to delete this project ?');
+                            if (result) {
+                                event.preventDefault();
+                                document.getElementById('delete-form').submit();
+                            }
+                            ">Delete</a></li>
+                        <form id="delete-form" method="POST" style="display: none;" action="{{ route('projects.destroy', [$project->id])}}">
+                            <input type="hidden" name="_method" value="delete" />
+                            {{ csrf_field() }}
+                        </form>
+                    @endif
                 </ol>
             </div>
 
             <div class="sidebar-module">
                 <h4>Links</h4>
                 <ol class="list-unstyled">
-                    <li><a href="{{ route('projects.create') }}">New Project</a></li>
+                    <li><a href="{{ route('projects.create') }}">New Company</a></li>
                     <li><a href="#">New Member</a></li>
-                    <li><a href="/companies">View All Campanies</a></li>
+                    <li><a href="/projects">View My Company</a></li>
                 </ol>
             </div>
         </div>
