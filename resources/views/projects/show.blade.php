@@ -7,10 +7,40 @@
             <div class="well well-lg">
              <h1>{{ $project->name }}</h1>
              <p class="lead">{{ $project->description }}</p>
-                {{--<a href="{{route('projects.create')}}" class="btn btn-sm btn-danger pull-right">New Project</a>--}}
+                <a href="{{route('tasks.create')}}" class="btn btn-sm btn-danger pull-right">New Task</a>
          </div>
 
-            <div class="row" style="background: white; margin: 10px;">
+            <div class="row container-fluid col-md-12 col-lg-12 col-sm-12" style="background: white; margin: 10px;">
+
+                <form class="form-horizontal" method="post" action="{{route('comments.store')}}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="commentable" value="Project">
+                    <input type="hidden" name="commentable_id" value="{{ $project->id }}">
+
+                    <div class="form-group">
+                        <label for="comment-content">Comment<span class="required">*</span></label>
+                        <textarea placeholder="Enter Name"
+                                  id="comment-content" style="resize: vertical;"
+                                  required
+                                  name="body"
+                                  spellcheck="false"
+                                  class="form-control" rows="3"
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment-url">Proof of work Done (url/photos)<span class="required">*</span></label>
+                        <textarea placeholder="Enter Name"
+                                  id="comment-url" style="resize: vertical;"
+                                  required
+                                  name="url"
+                                  spellcheck="false"
+                                  class="form-control" rows="2"
+                        ></textarea>
+                    </div>
+                    <div class="form form-group">
+                        <input type="submit" class="btn btn-primary" value="submit"/>
+                    </div>
+                </form>
             {{--@foreach($project->company as $company)--}}
                 {{--<div class="col-lg-4 col-sm-4 col-md-4">--}}
                     {{--<h2>{{ $project->company->name }}</h2>--}}
@@ -18,7 +48,7 @@
                     {{--<p><a class="btn btn-primary" href="/companies/{{ $project->company->id }}" role="button">View Company</a></p>--}}
                 {{--</div>--}}
             {{--@endforeach--}}
-        </div>
+            </div>
         </div>
 
         <div class="col-sm-3 col-md-3 col-lg-3 pull-right">
