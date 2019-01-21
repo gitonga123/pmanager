@@ -29,10 +29,10 @@ class User extends Authenticatable
     ];
 
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+//    public function comments()
+//    {
+//        return $this->hasMany(Comment::class);
+//    }
 
     public function role()
     {
@@ -52,5 +52,10 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->belongsToMany(Project::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(User::class, 'commentable');
     }
 }
