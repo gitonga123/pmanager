@@ -14,7 +14,7 @@
 
                 <form class="form-horizontal" method="post" action="{{route('comments.store')}}">
                     {{ csrf_field() }}
-                    <input type="hidden" name="commentable" value="Project">
+                    <input type="hidden" name="commentable" value="App\Project">
                     <input type="hidden" name="commentable_id" value="{{ $project->id }}">
 
                     <div class="form-group">
@@ -41,13 +41,14 @@
                         <input type="submit" class="btn btn-primary" value="submit"/>
                     </div>
                 </form>
-            {{--@foreach($project->company as $company)--}}
-                {{--<div class="col-lg-4 col-sm-4 col-md-4">--}}
-                    {{--<h2>{{ $project->company->name }}</h2>--}}
-                    {{--<p> {{ $project->company->description }}</p>--}}
-                    {{--<p><a class="btn btn-primary" href="/companies/{{ $project->company->id }}" role="button">View Company</a></p>--}}
-                {{--</div>--}}
-            {{--@endforeach--}}
+                <?php dd($project);?>
+            @foreach($project->comments as $comment)
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                    <h2>{{ $comment->body }}</h2>
+                    <p> {{ $comment->url }}</p>
+                    <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View Project</a></p>
+                </div>
+            @endforeach
             </div>
         </div>
 

@@ -4,9 +4,9 @@
 @section('content')
     <div class="container">
         <div class="col-md-9 col-lg-9 col-sm-9 pull-left">
-            <div class="jumbotron">
+            <div class="well well-sm">
                 <h1>New Project</h1>
-                <p class="lead">{{ $company->name }}</p>
+                {{--<p class="lead">{{ $company->name }}</p>--}}
             </div>
 
             <div class="row" style="background: white; margin: 10px;">
@@ -24,11 +24,23 @@
                             />
                         </div>
 
-                        <input type="hidden" id="company_id" value="{{ $company->id }}" name="company_id"/>
+                        @if($companies != null)
+                            <div class="form-group" >
+                                <label for="company-content">Select Company<span class="required">*</span></label>
+                                <select class="form-control" name="company_id">
+                                    @foreach($companies as $company)
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @else
+                            <input type="hidden" class="form-control" name="company_id" value="{{ $company->id }}" placeholder="{{ $company->name }}"/>
+                        @endif
+
                         <div class="form-group">
-                            <label for="company-content">Description<span class="required">*</span></label>
+                            <label for="project-content">Description<span class="required">*</span></label>
                             <textarea placeholder="Enter Name"
-                                      id="company-name" style="resize: vertical;"
+                                      id="project-content" style="resize: vertical;"
                                       required
                                       name="description"
                                       spellcheck="false"

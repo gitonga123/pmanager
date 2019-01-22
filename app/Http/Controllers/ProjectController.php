@@ -35,12 +35,17 @@ class ProjectController extends Controller
      */
     public function create($company_id = null)
     {
+
+        $companies = null;
         if ($company_id) {
 
             $company = Company::find(intval($company_id));
-            return view('projects.create', compact('company'));
+            return view('projects.create', compact(['company', 'companies' ]));
+        } else {
+            $companies = Company::where('user_id', Auth::user()->id)->get();
+            return view('projects.create', compact('companies'));
         }
-        return view('projects.create', ['company_id' => $company_id]);
+
     }
 
     /**
