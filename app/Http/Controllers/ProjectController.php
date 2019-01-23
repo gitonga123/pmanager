@@ -83,7 +83,8 @@ class ProjectController extends Controller
     {
 //        $project =  Project::where('id', $project->id)->first();
         $project = Project::find($project->id);
-        return view('projects.show', compact('project'));
+        $comments = $project->comments;
+        return view('projects.show', compact(['comments', 'project']));
     }
 
     /**
