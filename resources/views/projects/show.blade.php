@@ -14,7 +14,7 @@
 
                 <form class="form-horizontal" method="post" action="{{route('comments.store')}}">
                     {{ csrf_field() }}
-                    <input type="hidden" name="commentable" value="App\Project">
+                    <input type="hidden" name="commentable_type" value="pmanager\Project">
                     <input type="hidden" name="commentable_id" value="{{ $project->id }}">
 
                     <div class="form-group">
@@ -41,14 +41,54 @@
                         <input type="submit" class="btn btn-primary" value="submit"/>
                     </div>
                 </form>
-                <?php dd($project);?>
-            @foreach($project->comments as $comment)
-                <div class="col-lg-4 col-sm-4 col-md-4">
-                    <h2>{{ $comment->body }}</h2>
-                    <p> {{ $comment->url }}</p>
-                    <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View Project</a></p>
+
+            
+                <!-- <div class="col-lg-4 col-sm-4 col-md-4"> -->
+                    <!-- <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View Project</a></p> -->
+                <!-- </div> -->
+            
+
+                <div class="row">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12"> -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                    Recent Comments
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="media-list">
+                                    @foreach($project->comments as $comment)
+                                        <li class="media">
+                                            <div class="media-left">
+                                                <img src="http:://placehold.it/60x60" class="img-circle">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="user/{{ $comment->user->id }}">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</a>
+                                                    <br />
+
+                                                    <small>
+                                                        Commented on {{ $comment->created_at }}
+                                                    </small>
+                                                </h4>
+                                                <p>
+                                                    {{ $comment->body }}
+                                                </p>
+                                                Proof:
+                                                <p>
+                                                    {{ $comment->url }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <a href="#" class="btn btn-default btn-block">More Comments</a>
+                            </div>
+                        </div>
+                    <!-- </div> -->
                 </div>
-            @endforeach
             </div>
         </div>
 
