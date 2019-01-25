@@ -16,11 +16,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        if (Auth::check() && Auth::user()->id === 3) {
+        if (Auth::check() && Auth::user()->roles === 3) {
             $projects = Project::all();
         } else if (Auth::check()) {
 
-            $projects = Project::where('user_id', Auth::user()->id)->get();
+            $projects = Project::all();
         } else {
             return redirect()->route('login')->with("Kasambuyu Oyole");
         }
@@ -138,4 +138,21 @@ class ProjectController extends Controller
 
         return back()->withInput()->with('error', ['Project could not be deleted']);
     }
+
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function adduser(Reequest $request)
+    {
+        $project = ProjectUser::find($request->input('project_id'));
+        $user = User::where('email', $request->input('email'));
+
+        if ($user && $project) {
+            $project->users()->attach($user->id);
+        }
+    }
+ 
 }

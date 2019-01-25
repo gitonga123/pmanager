@@ -85,6 +85,21 @@
                                     </li>
                                 </ul>
                             </li>
+                            @if(Auth::user()->roles == 1)
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        Admin  <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ route('projects.index') }}">Projects</a></li>
+                                        <li><a href="{{ route('users.index') }}">Users</a></li>
+                                        <li><a href="{{ route('tasks.index') }}">Task</a></li>
+                                        <li><a href="{{ route('companies.index') }}">Companies</a></li>
+                                        <li><a href="{{ route('roles.index') }}">Roles</a></li>
+                                    </ul>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>
@@ -101,5 +116,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 </body>
 </html>

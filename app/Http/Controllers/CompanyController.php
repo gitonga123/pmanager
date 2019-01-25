@@ -17,11 +17,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        if (Auth::check() && Auth::user()->id === 3) {
+        if (Auth::check() && Auth::user()->roles === 3) {
             $companies = Company::all();
         } else if (Auth::check()) {
 
-            $companies = Company::where('user_id', Auth::user()->id)->get();
+            $companies = Company::all();
         } else {
             return redirect()->route('login')->with("Kasambuyu Oyole");
         }

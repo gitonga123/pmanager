@@ -7,7 +7,7 @@
             <div class="well well-lg">
              <h1>{{ $project->name }}</h1>
              <p class="lead">{{ $project->description }}</p>
-                <a href="{{route('tasks.create')}}" class="btn btn-sm btn-danger pull-right">New Task</a>
+                <a href="{{route('tasks.create')}}" class="btn btn-sm btn-success pull-right">New Task</a>
          </div>
 
             <div class="row container-fluid col-md-12 col-lg-12 col-sm-12" style="background: white; margin: 10px;">
@@ -39,15 +39,9 @@
                         ></textarea>
                     </div>
                     <div class="form form-group">
-                        <input type="submit" class="btn btn-primary" value="submit"/>
+                        <input type="submit" class="btn btn-success" value="submit"/>
                     </div>
                 </form>
-
-            
-                <!-- <div class="col-lg-4 col-sm-4 col-md-4"> -->
-                    <!-- <p><a class="btn btn-primary" href="/projects/{{ $project->id }}" role="button">View Project</a></p> -->
-                <!-- </div> -->
-            
 
             </div>
         </div>
@@ -63,7 +57,7 @@
                 <ol class="list-unstyled">
                     <li><a href="{{ route('companies.create') }}">New Project</a></li>
                     <li><a href="/projects/{{ $project->id }}/edit">Edit</a></li>
-                    @if(Auth::user()->id == $project->user_id)
+                    @if(Auth::user()->id == $project->user_id || Auth::user()->roles == 1)
                         <li><a href="#"
                             onclick="
                             var result = confirm('Are you sure you wish to delete this project ?');
@@ -76,8 +70,25 @@
                             <input type="hidden" name="_method" value="delete" />
                             {{ csrf_field() }}
                         </form>
-                    @endif
+                    
                 </ol>
+
+                <hr /><h4>Add Members</h4>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
+                        <form id="add-user" method="POST"  action="/project/adduser">
+                            <input type="hidden" name="project_id" value="{{$project->id}}" />
+                            {{ csrf_field() }}
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="email" placeholder="Email">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">Add!</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @endif
             </div>
 
             <div class="sidebar-module">
@@ -90,4 +101,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            console.log("Attention");
+        });
+    </script>
 @endsection

@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/create/{company_id}', 'ProjectController@create')->name('new_project');
     Route::resource('companies', 'CompanyController');
     Route::resource('projects', 'ProjectController');
+    Route::post('projects/adduser', 'ProjectController@adduser')->name('project_user');
     Route::resource('roles', 'RoleController');
     Route::resource('tasks', 'TaskController');
     Route::resource('users', 'UserController');
