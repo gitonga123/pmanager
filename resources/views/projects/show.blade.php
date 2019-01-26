@@ -76,7 +76,7 @@
                 <hr /><h4>Add Members</h4>
                 <div class="row">
                     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
-                        <form id="add-user" method="POST"  action="/project/adduser">
+                        <form id="add-user" method="POST"  action="/projects/adduser">
                             <input type="hidden" name="project_id" value="{{ $project->id }}" />
                             {{ csrf_field() }}
                             <div class="input-group">
@@ -89,6 +89,16 @@
                     </div>
                 </div>
                 @endif
+            </div>
+            <div class="sidebar-module">
+                <h4>Members</h4>
+                <ol class="list-unstyled">
+                    @forelse ($project->users as $user) 
+                        <li><a href="user/{$user->id}">{{ $user->first_name }} {{ $user->last_name }}</a></li>
+                    @empty
+                        <li># . </li>
+                    @endforelse
+                </ol>
             </div>
 
             <div class="sidebar-module">

@@ -5,6 +5,8 @@ namespace pmanager\Http\Controllers;
 use Illuminate\Http\Request;
 use pmanager\Company;
 use pmanager\Project;
+use pmanager\User;
+use pmanager\ProjectUser;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
@@ -142,17 +144,23 @@ class ProjectController extends Controller
         /**
      * Remove the specified resource from storage.
      *
-     * @param  project  $project
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function adduser(Reequest $request)
+    public function adduser(Request $request)
     {
-        $project = ProjectUser::find($request->input('project_id'));
-        $user = User::where('email', $request->input('email'));
+        $project = Project::find($request->input('project_id'));
+        $user = User::where('email', $request->input('email'))->first();
 
-        if ($user && $project) {
-            $project->users()->attach($user->id);
+
+        $projectuser = ProjectUser::get()->where('project_id', $request->input('project_id'))->where('user_id', $user->id)->count();
+        if ($projectuser < 1) {
+            if ($user && $project) {
+                $project->users()->attach($user->id);
+                return redirect()->route('projects.show', ['project' => $project->id])->with('success', "{$request->input('email')} was added to project successfully");
+            }
         }
+        return back()->with('errors', ["{$request->input('email')} Already exists in this project"]);
     }
  
 }

@@ -11,7 +11,7 @@
                 @foreach($comments as $comment)
                     <li class="media">
                         <div class="media-left">
-                            <img src="http:://placehold.it/60x60" class="img-circle">
+                            <img src="http://i.pravatar.cc/60X60" class="img-circle">
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">
