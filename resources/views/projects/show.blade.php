@@ -7,13 +7,13 @@
             <div class="well well-lg">
              <h1>{{ $project->name }}</h1>
              <p class="lead">{{ $project->description }}</p>
-                <a href="{{route('tasks.create')}}" class="btn btn-sm btn-success pull-right">New Task</a>
+                <a href="{{ route('tasks.create') }}" class="btn btn-sm btn-success pull-right">New Task</a>
          </div>
 
             <div class="row container-fluid col-md-12 col-lg-12 col-sm-12" style="background: white; margin: 10px;">
                 @include('partials.comments');
 
-                <form class="form-horizontal" method="post" action="{{route('comments.store')}}">
+                <form class="form-horizontal" method="post" action="{{ route('comments.store') }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="commentable_type" value="pmanager\Project">
                     <input type="hidden" name="commentable_id" value="{{ $project->id }}">
@@ -47,10 +47,10 @@
         </div>
 
         <div class="col-sm-3 col-md-3 col-lg-3 pull-right">
-            {{--<div class="sidebar-module sidebar-module-inset">--}}
-                {{--<h4>About</h4>--}}
-                {{--<p>Ffiaia <em> Empanticipate YOurself</em> From the vulters. Crass mattis connection pursuit</p>--}}
-            {{--</div>--}}
+            {{-- <div class="sidebar-module sidebar-module-inset"> --}}
+                {{-- <h4>About</h4> --}}
+                {{-- <p>Ffiaia <em> Empanticipate YOurself</em> From the vulters. Crass mattis connection pursuit</p> --}}
+            {{-- </div> --}}
 
             <div class="sidebar-module">
                 <h4>Actions</h4>
@@ -66,7 +66,7 @@
                                 document.getElementById('delete-form').submit();
                             }
                             ">Delete</a></li>
-                        <form id="delete-form" method="POST" style="display: none;" action="{{ route('projects.destroy', [$project->id])}}">
+                        <form id="delete-form" method="POST" style="display: none;" action="{{ route('projects.destroy', [$project->id]) }}">
                             <input type="hidden" name="_method" value="delete" />
                             {{ csrf_field() }}
                         </form>
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
                         <form id="add-user" method="POST"  action="/project/adduser">
-                            <input type="hidden" name="project_id" value="{{$project->id}}" />
+                            <input type="hidden" name="project_id" value="{{ $project->id }}" />
                             {{ csrf_field() }}
                             <div class="input-group">
                                 <input type="text" class="form-control" name="email" placeholder="Email">
@@ -101,10 +101,12 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            console.log("Attention");
-        });
-    </script>
+    @section('jsScript')
+        @parent
+        <script>
+            $(document).ready(function() {
+                console.log("Attention");
+            });
+        </script>
+    @endsection
 @endsection

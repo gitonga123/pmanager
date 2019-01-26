@@ -29,3 +29,4 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', 'UserController');
     Route::resource('comments', 'CommentController');
 });
+Route::get('learn', 'LearnController@learn');
