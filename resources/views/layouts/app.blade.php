@@ -112,6 +112,7 @@
                 @yield('content')
             </div>
         </div>
+        <example></example>
     </div>
 
     <!-- Scripts -->

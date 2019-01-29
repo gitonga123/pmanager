@@ -94,7 +94,7 @@
                 <h4>Members</h4>
                 <ol class="list-unstyled">
                     @forelse ($project->users as $user) 
-                        <li><a href="user/{$user->id}">{{ $user->first_name }} {{ $user->last_name }}</a></li>
+                        <li><a href="user/{{  $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</a></li>
                     @empty
                         <li># . </li>
                     @endforelse
